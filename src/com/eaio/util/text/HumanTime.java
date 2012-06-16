@@ -258,7 +258,6 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>,
 	 *            the initial time delta, interpreted as a positive number
 	 */
 	public HumanTime(long delta) {
-		super();
 		this.delta = Math.abs(delta);
 	}
 
@@ -708,9 +707,39 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>,
 		return delta;
 	}
 
-	/**
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+	// Comparable
+
+	@Override
+	public int compareTo(HumanTime t) {
+		return delta == t.delta ? 0 : (delta < t.delta ? -1 : 1);
+	}
+
+	// Externalizable
+
+	@Override
+	public void writeExternal(ObjectOutput out) throws IOException {
+		out.writeLong(delta);
+	}
+
+	@Override
+	public void readExternal(ObjectInput in) throws IOException {
+		delta = in.readLong();
+	}
+
+	// Cloneable
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+
+	//
+
+	@Override
+	public int hashCode() {
+		return (int) (delta ^ (delta >> 32));
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -722,64 +751,9 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>,
 		return delta == ((HumanTime) obj).delta;
 	}
 
-	/**
-	 * Returns a 32-bit representation of the time delta.
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		return (int) (delta ^ (delta >> 32));
-	}
-
-	/**
-	 * Returns a String representation of this.
-	 * <p>
-	 * The output is identical to {@link #getExactly()}.
-	 * 
-	 * @see java.lang.Object#toString()
-	 * @see #getExactly()
-	 * @return a String, never <code>null</code>
-	 */
 	@Override
 	public String toString() {
 		return getExactly();
-	}
-
-	/**
-	 * Compares this HumanTime to another HumanTime.
-	 * 
-	 * @param t
-	 *            the other instance, may not be <code>null</code>
-	 * @return which one is greater
-	 */
-	public int compareTo(HumanTime t) {
-		return delta == t.delta ? 0 : (delta < t.delta ? -1 : 1);
-	}
-
-	/**
-	 * Deep-clones this object.
-	 * 
-	 * @see java.lang.Object#clone()
-	 * @throws CloneNotSupportedException
-	 */
-	@Override
-	public Object clone() throws CloneNotSupportedException {
-		return super.clone();
-	}
-
-	/**
-	 * @see java.io.Externalizable#readExternal(java.io.ObjectInput)
-	 */
-	public void readExternal(ObjectInput in) throws IOException {
-		delta = in.readLong();
-	}
-
-	/**
-	 * @see java.io.Externalizable#writeExternal(java.io.ObjectOutput)
-	 */
-	public void writeExternal(ObjectOutput out) throws IOException {
-		out.writeLong(delta);
 	}
 
 }
