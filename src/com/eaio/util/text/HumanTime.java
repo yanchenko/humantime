@@ -111,11 +111,15 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>, Cloneab
 
     }
 
-    /**
-     * setting this true will omit the space after the number and before the unit.
-     * For example, "1 m 2 s 3 ms" will be shown as "1m 2s 3ms"
-     */
-    static boolean compact;
+	private boolean compact;
+
+	/**
+	 * setting this true will omit the space after the number and before the
+	 * unit. For example, "1 m 2 s 3 ms" will be shown as "1m 2s 3ms"
+	 */
+	public void setCompact(boolean compact) {
+		this.compact = compact;
+	}
 
     static State getState(char c) {
         State out;
