@@ -84,38 +84,46 @@ public class HumanTimeTest extends TestCase {
 	 * Test method for {@link com.eaio.util.text.HumanTime#exactly(long)}.
 	 */
 	public void testExactlyLong() {
-		assertEquals("42 ms", HumanTime.exactly(42));
-		assertEquals("1 s 42 ms", HumanTime.exactly(1042));
+		assertEquals("42 ms", new HumanTime(42).getExactly());
+		assertEquals("1 s 42 ms", new HumanTime(1042).getExactly());
 	}
 
 	public void testApproximately() {
-		assertEquals("42 ms", HumanTime.approximately(42));
-		assertEquals("1 s", HumanTime.approximately(1042));
-		assertEquals("1 y", HumanTime.approximately("350 d 18 h"));
-		assertEquals("1 y", HumanTime.approximately("365 d 8 h"));
-		assertEquals("1 y", HumanTime.approximately("380 d 14 h 20 m 40s"));
-		assertEquals("2 y", HumanTime.approximately("700 d"));
-		assertEquals("50 d", HumanTime.approximately("50d 20 s"));
-		assertEquals("3 d", HumanTime.approximately("2d 22h"));
-		assertEquals("2 d", HumanTime.approximately("2 d 1 h 20 m 50 s"));
-		assertEquals("2 d 8 h", HumanTime.approximately("2 d 8 h 20 m 50 s"));
-		assertEquals("2 d 9 h", HumanTime.approximately("2d9h"));
-		assertEquals("2 d 10 h", HumanTime.approximately("2 d 5h 5h"));
-		assertEquals("2 h 20 m", HumanTime.approximately("1 h 1h 10m 10m"));
-		assertEquals("2 d", HumanTime.approximately("1 d 1d 30 m"));
-		assertEquals("2 d", HumanTime.approximately("1 d 1d 30 m"));
-		assertEquals("30 m", HumanTime.approximately("0 h 10 m 10 m 10m"));
-		assertEquals("1 h", HumanTime.approximately("55m"));
-		assertEquals("1 m", HumanTime.approximately("55 s"));
-		assertEquals("20 s", HumanTime.approximately("19 s 850 ms"));
-		assertEquals("1 h", HumanTime.approximately("29 m 30m 100 ms"));
-		assertEquals("1 h", HumanTime.approximately("30m 30m 100ms"));
-		assertEquals("20 s 200 ms", HumanTime.approximately("20 s 200 ms"));
-		assertEquals("1 y", HumanTime.approximately("1 y 1 h"));
-		assertEquals("1 y", HumanTime.approximately("1 y 10 h"));
+		assertEquals("42 ms", new HumanTime(42).getApproximately());
+		assertEquals("1 s", new HumanTime(1042).getApproximately());
+		assertEquals("1 y", HumanTime.eval("350 d 18 h").getApproximately());
+		assertEquals("1 y", HumanTime.eval("365 d 8 h").getApproximately());
+		assertEquals("1 y", HumanTime.eval("380 d 14 h 20 m 40s")
+				.getApproximately());
+		assertEquals("2 y", HumanTime.eval("700 d").getApproximately());
+		assertEquals("50 d", HumanTime.eval("50d 20 s").getApproximately());
+		assertEquals("3 d", HumanTime.eval("2d 22h").getApproximately());
+		assertEquals("2 d", HumanTime.eval("2 d 1 h 20 m 50 s")
+				.getApproximately());
+		assertEquals("2 d 8 h", HumanTime.eval("2 d 8 h 20 m 50 s")
+				.getApproximately());
+		assertEquals("2 d 9 h", HumanTime.eval("2d9h").getApproximately());
+		assertEquals("2 d 10 h", HumanTime.eval("2 d 5h 5h").getApproximately());
+		assertEquals("2 h 20 m", HumanTime.eval("1 h 1h 10m 10m")
+				.getApproximately());
+		assertEquals("2 d", HumanTime.eval("1 d 1d 30 m").getApproximately());
+		assertEquals("2 d", HumanTime.eval("1 d 1d 30 m").getApproximately());
+		assertEquals("30 m", HumanTime.eval("0 h 10 m 10 m 10m")
+				.getApproximately());
+		assertEquals("1 h", HumanTime.eval("55m").getApproximately());
+		assertEquals("1 m", HumanTime.eval("55 s").getApproximately());
+		assertEquals("20 s", HumanTime.eval("19 s 850 ms").getApproximately());
+		assertEquals("1 h", HumanTime.eval("29 m 30m 100 ms")
+				.getApproximately());
+		assertEquals("1 h", HumanTime.eval("30m 30m 100ms").getApproximately());
+		assertEquals("20 s 200 ms", HumanTime.eval("20 s 200 ms")
+				.getApproximately());
+		assertEquals("1 y", HumanTime.eval("1 y 1 h").getApproximately());
+		assertEquals("1 y", HumanTime.eval("1 y 10 h").getApproximately());
 		assertEquals("1 y 171 d",
-				HumanTime.approximately("356 d 180 d 12 h 40 m 20 s 802 ms"));
-		assertEquals("1 d", HumanTime.approximately("23 h 1h 10 s"));
+				HumanTime.eval("356 d 180 d 12 h 40 m 20 s 802 ms")
+						.getApproximately());
+		assertEquals("1 d", HumanTime.eval("23 h 1h 10 s").getApproximately());
 	}
 
 	public void testEquals() {

@@ -238,59 +238,6 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>,
 	}
 
 	/**
-	 * Parses and formats the given char sequence, preserving all data.
-	 * <p>
-	 * Equivalent to <code>eval(in).getExactly()</code>
-	 * 
-	 * @param in
-	 *            the char sequence, may not be <code>null</code>
-	 * @return a formatted String, never <code>null</code>
-	 */
-	public static String exactly(CharSequence in) {
-		return eval(in).getExactly();
-	}
-
-	/**
-	 * Formats the given time delta, preserving all data.
-	 * <p>
-	 * Equivalent to <code>new HumanTime(in).getExactly()</code>
-	 * 
-	 * @param l
-	 *            the time delta
-	 * @return a formatted String, never <code>null</code>
-	 */
-	public static String exactly(long l) {
-		return new HumanTime(l).getExactly();
-	}
-
-	/**
-	 * Parses and formats the given char sequence, potentially removing some
-	 * data to make the output easier to understand.
-	 * <p>
-	 * Equivalent to <code>eval(in).getApproximately()</code>
-	 * 
-	 * @param in
-	 *            the char sequence, may not be <code>null</code>
-	 * @return a formatted String, never <code>null</code>
-	 */
-	public static String approximately(CharSequence in) {
-		return eval(in).getApproximately();
-	}
-
-	/**
-	 * Formats the given time delta, preserving all data.
-	 * <p>
-	 * Equivalent to <code>new HumanTime(l).getApproximately()</code>
-	 * 
-	 * @param l
-	 *            the time delta
-	 * @return a formatted String, never <code>null</code>
-	 */
-	public static String approximately(long l) {
-		return new HumanTime(l).getApproximately();
-	}
-
-	/**
 	 * The time delta.
 	 */
 	private long delta;
